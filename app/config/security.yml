@@ -1,13 +1,53 @@
 security:
 
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 13
+
     providers:
+        our_db_provider:
+            entity:
+                class: AppBundle:User
+                property: username
+
         in_memory:
             memory: ~
 
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            anonymous: ~
+        secured_area:
+            pattern: ^/
+            provider: in_memory
+            anonymous: true
+            form_login: true
+            http_basic: true
+            stateless:  true
+            logout: true
+            x509: true
+            form_login:
+                check_path: /login_check
+                login_path: /login
+                username_parameter: username
+                password_parameter: password
+                require_previous_session: false
+                failure_path: null
+                always_use_default_target_path: false
+                default_target_path: /app/example
+                target_path_parameter: _target_path
+                use_referer: false
+                use_forward: true
+                cookie_secure: true
+            logout:
+                path: /logout
+                target: /index
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/app/example, roles: IS_AUTHENTICATED_ANONYMOUSLY }
