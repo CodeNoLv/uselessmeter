@@ -59,26 +59,6 @@ class AccountController extends Controller
 	}
 
 	/**
-     * @Route("/account/loginone", name="account_loginone")
-     */
-	public function logintwoAction()
-	{
-		$password = 'admin1';
-		$message = '';
-
-		$manager = $this->getDoctrine()->getManager();
-        $customerRepository = $manager->getRepository('AppBundle:User');
-		$user = $customerRepository->find(4);
-
-		if (!$user) return new Response('User not found');
-		$encoder = $this->get('security.encoder_factory')->getEncoder($user);
-
-		if (!($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt()))) return new Response('Password wrong!');
-
-		return new Response('We are OK!');
-	}
-
-	/**
      * @Route("/login", name="login_route")
      */
     public function loginAction(Request $request)
