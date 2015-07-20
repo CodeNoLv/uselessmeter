@@ -27,7 +27,7 @@ security:
                 default_target_path: /app/example
             logout:
                 path: /logout
-                target: /index
+                target: /app/example
             anonymous: true
 
     access_control:
