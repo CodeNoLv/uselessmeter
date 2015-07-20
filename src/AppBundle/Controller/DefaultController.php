@@ -13,8 +13,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        // return $this->render('default/index.html.twig');
-        var_dump($this->get('kernel')->getEnvironment());
-        return new Response('Admin page!');
+        return $this->render('default/index.html.twig');
     }
 }

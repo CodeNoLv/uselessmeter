@@ -18,32 +18,17 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
         secured_area:
             pattern: ^/
-            provider: in_memory
-            anonymous: true
-            form_login: true
-            http_basic: true
-            stateless:  true
-            logout: true
-            x509: true
             form_login:
-                check_path: /login_check
+                provider: our_db_provider
                 login_path: /login
-                username_parameter: username
-                password_parameter: password
-                require_previous_session: false
-                failure_path: null
-                always_use_default_target_path: false
+                check_path: /login_check
                 default_target_path: /app/example
-                target_path_parameter: _target_path
-                use_referer: false
-                use_forward: true
-                cookie_secure: true
             logout:
                 path: /logout
                 target: /index
+            anonymous: true
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
