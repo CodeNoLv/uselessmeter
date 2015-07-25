@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>
+            {% block title %}
+                Uselessmeter
+            {% endblock %}
+        </title>
+        {% stylesheets '@AppBundle/Resources/public/css/*' %}
+             <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        Template navigation | xxxxx | xxxxx | xxxxx
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
